@@ -10,9 +10,8 @@ import java.util.HashMap;
 
 public class CommandClientBuilder {
 
-    public static HashMap<String, Command> commandHashMap = new HashMap<>();
+    public static HashMap<String, BuiltCommand> commandHashMap = new HashMap<>();
     public boolean isReady;
-    public HashMap<String, Command> commands = new HashMap<>();
     private String token = null;
     public static String commandStart = null;
 
@@ -41,6 +40,8 @@ public class CommandClientBuilder {
                 continue;
             }
             CommandAnnotation.CommandInfo commandInfo = (CommandAnnotation.CommandInfo) clazz.getAnnotation(CommandAnnotation.CommandInfo.class);
+            BuiltCommand builtCommand = new BuiltCommand(commandInfo.name(), commandInfo.desc(), commandInfo.usage());
+            this.commandHashMap.put(builtCommand.getName(), builtCommand);
         }
         return jda;
     }
