@@ -14,7 +14,7 @@ public class CommandClientBuilder {
     public boolean isReady;
     public HashMap<String, Command> commands = new HashMap<>();
     private String token = null;
-    private String commandStart = null;
+    public static String commandStart = null;
 
     public CommandClientBuilder setPrefix(String prefix) {
         commandStart = prefix;
