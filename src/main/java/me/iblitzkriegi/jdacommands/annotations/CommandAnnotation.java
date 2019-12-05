@@ -9,7 +9,7 @@ public class CommandAnnotation {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
-    public @interface Command {
+    public @interface CommandInfo {
         String name();
         String desc();
         String usage();

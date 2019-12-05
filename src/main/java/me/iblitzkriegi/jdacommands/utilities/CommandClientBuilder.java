@@ -26,7 +26,7 @@ public class CommandClientBuilder {
 
     public JDA build(Class mainClass) {
         for (Class clazz : getAllClasses(mainClass)) {
-            if (clazz.isAnnotationPresent(CommandAnnotation.Command.class)) {
+            if (clazz.isAnnotationPresent(CommandAnnotation.CommandInfo.class)) {
                 //Begin Registration
                 System.out.println("Found in: " + clazz.getSimpleName());
             }
