@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class CommandClientBuilder {
 
     public static HashMap<String, BuiltCommand> commandHashMap = new HashMap<>();
-    public boolean isReady;
+    public static boolean isReady;
     private String token = null;
     public static String commandStart = null;
 
@@ -33,6 +33,7 @@ public class CommandClientBuilder {
             jda = jdaBuilder.build().awaitReady();
         } catch (Exception x) {
             System.out.printf("An error occured while attempting to login to the bot. Maybe the token is wrong?");
+            x.printStackTrace();
             return null;
         }
         for (Class clazz : getAllClasses(mainClass)) {
@@ -40,9 +41,17 @@ public class CommandClientBuilder {
                 continue;
             }
             CommandAnnotation.CommandInfo commandInfo = (CommandAnnotation.CommandInfo) clazz.getAnnotation(CommandAnnotation.CommandInfo.class);
-            BuiltCommand builtCommand = new BuiltCommand(commandInfo.name(), commandInfo.desc(), commandInfo.usage());
+            BuiltCommand builtCommand;
+            try {
+                builtCommand = new BuiltCommand(commandInfo.name(), commandInfo.desc(), commandInfo.usage(), (Command) clazz.newInstance());
+            } catch (Exception x) {
+                return null;
+            }
+
             this.commandHashMap.put(builtCommand.getName(), builtCommand);
         }
+        isReady = true;
+        jda.addEventListener(new CommandClient());
         return jda;
     }
 
