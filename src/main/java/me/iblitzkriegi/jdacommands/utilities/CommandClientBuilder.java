@@ -2,6 +2,7 @@ package me.iblitzkriegi.jdacommands.utilities;
 
 import com.google.common.reflect.ClassPath;
 import me.iblitzkriegi.jdacommands.annotations.CommandAnnotation;
+import me.iblitzkriegi.jdacommands.utilities.wrappers.BuiltCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 
