@@ -1,4 +1,6 @@
-package me.iblitzkriegi.jdacommands.utilities;
+package me.iblitzkriegi.jdacommands.utilities.wrappers;
+
+import me.iblitzkriegi.jdacommands.utilities.Command;
 
 public class BuiltCommand {
 
