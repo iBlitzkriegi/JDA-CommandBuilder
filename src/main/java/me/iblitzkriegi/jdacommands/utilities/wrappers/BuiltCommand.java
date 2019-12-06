@@ -28,7 +28,7 @@ public class BuiltCommand {
     }
 
     public boolean hasRequiredPermissions() {
-        return this.requiredPermissions == null;
+        return this.requiredPermissions != null;
     }
 
     public String getName() {
