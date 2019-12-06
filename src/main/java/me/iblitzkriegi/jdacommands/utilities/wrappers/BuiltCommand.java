@@ -8,6 +8,7 @@ public class BuiltCommand {
     private String description;
     private String usage;
     private Command commandClass;
+    private boolean guildOnly;
 
     public BuiltCommand(String name, String description, String usage, Command commandClass) {
         this.name = name;
@@ -42,6 +43,14 @@ public class BuiltCommand {
 
     public void setUsage(String usage) {
         this.usage = usage;
+    }
+
+    public void setGuildOnly(boolean guildOnly) {
+        this.guildOnly = guildOnly;
+    }
+
+    public boolean isGuildOnly() {
+        return guildOnly;
     }
 
 }
