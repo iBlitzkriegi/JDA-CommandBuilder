@@ -60,4 +60,12 @@ public class CommandEvent {
         return event.getMessage();
     }
 
+    public PrivateChannel getPrivateChannel() {
+        return event.getPrivateChannel();
+    }
+
+    public TextChannel getTextChannel() {
+        return event.getTextChannel();
+    }
+
 }
