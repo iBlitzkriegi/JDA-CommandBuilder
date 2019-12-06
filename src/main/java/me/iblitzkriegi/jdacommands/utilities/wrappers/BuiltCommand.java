@@ -50,7 +50,7 @@ public class BuiltCommand {
     }
 
     public boolean isGuildOnly() {
-        return guildOnly;
+        return this.guildOnly;
     }
 
 }
