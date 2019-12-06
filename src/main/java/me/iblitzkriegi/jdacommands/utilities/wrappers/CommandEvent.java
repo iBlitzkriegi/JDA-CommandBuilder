@@ -34,5 +34,13 @@ public class CommandEvent {
     public Member getSelfMember() {
         return event.isFromGuild() ? event.getGuild().getSelfMember() : null;
     }
-    
+
+    public User getAuthor() {
+        return event.getAuthor();
+    }
+
+    public MessageChannel getChannel() {
+        return event.getChannel();
+    }
+
 }
