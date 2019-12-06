@@ -29,6 +29,10 @@ public class CommandClientBuilder {
     }
 
     public JDA build(Class mainClass) {
+        if (this.token == null) {
+            System.out.println("You must specify a token to be used via CommandClientBuilder#setToken(String token)!");
+            return null;
+        }
         JDABuilder jdaBuilder = new JDABuilder();
         JDA jda;
         jdaBuilder.setToken(this.token);
