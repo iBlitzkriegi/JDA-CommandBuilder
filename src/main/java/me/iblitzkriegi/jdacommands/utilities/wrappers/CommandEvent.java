@@ -1,8 +1,6 @@
 package me.iblitzkriegi.jdacommands.utilities.wrappers;
 
-import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class CommandEvent {
@@ -33,4 +31,8 @@ public class CommandEvent {
         return event.isFromGuild();
     }
 
+    public Member getSelfMember() {
+        return event.isFromGuild() ? event.getGuild().getSelfMember() : null;
+    }
+    
 }
