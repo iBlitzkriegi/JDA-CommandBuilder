@@ -52,4 +52,12 @@ public class CommandEvent {
         return event.getJDA();
     }
 
+    public Member getMember() {
+        return event.getMember();
+    }
+
+    public Message getMessage() {
+        return event.getMessage();
+    }
+
 }
