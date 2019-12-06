@@ -68,4 +68,11 @@ public class CommandEvent {
         return event.getTextChannel();
     }
 
+    public boolean isFromType(ChannelType type) {
+        return event.isFromType(type);
+    }
+
+    public boolean isWebhookMessage() {
+        return event.isWebhookMessage();
+    }
 }
