@@ -3,6 +3,7 @@ package me.iblitzkriegi.jdacommands.utilities;
 import com.google.common.reflect.ClassPath;
 import me.iblitzkriegi.jdacommands.annotations.CommandInfo;
 import me.iblitzkriegi.jdacommands.annotations.GuildOnly;
+import me.iblitzkriegi.jdacommands.annotations.RequiredPermissions;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.BuiltCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -47,6 +48,11 @@ public class CommandClientBuilder {
             try {
                 builtCommand = new BuiltCommand(commandInfo.name(), commandInfo.desc(), commandInfo.usage(), (Command) clazz.newInstance());
                 if (clazz.isAnnotationPresent(GuildOnly.class)) {
+                    builtCommand.setGuildOnly(true);
+                }
+                if (clazz.isAnnotationPresent(RequiredPermissions.class)) {
+                    RequiredPermissions requiredPermissions = (RequiredPermissions) clazz.getAnnotation(RequiredPermissions.class);
+                    builtCommand.setRequiredPermissions(requiredPermissions.value());
                     builtCommand.setGuildOnly(true);
                 }
             } catch (Exception x) {
