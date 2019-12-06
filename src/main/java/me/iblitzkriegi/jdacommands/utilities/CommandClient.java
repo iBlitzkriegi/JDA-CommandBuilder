@@ -4,6 +4,8 @@ import me.iblitzkriegi.jdacommands.utilities.wrappers.BuiltCommand;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.util.Arrays;
+
 public class CommandClient extends ListenerAdapter {
 
     @Override
@@ -11,7 +13,7 @@ public class CommandClient extends ListenerAdapter {
         String[] arguments = event.getMessage().getContentDisplay().split(" ");
         for (BuiltCommand builtCommand : CommandClientBuilder.commandHashMap.values()) {
             if (arguments[0].contains(CommandClientBuilder.commandStart + builtCommand.getName().toLowerCase())) {
-                builtCommand.getCommandClass().execute(event, arguments);
+                builtCommand.getCommandClass().execute(event, Arrays.copyOfRange(arguments, 1, arguments.length));
             }
         }
     }
