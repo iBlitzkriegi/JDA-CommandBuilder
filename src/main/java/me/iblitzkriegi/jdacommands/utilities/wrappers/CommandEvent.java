@@ -1,5 +1,7 @@
 package me.iblitzkriegi.jdacommands.utilities.wrappers;
 
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class CommandEvent {
@@ -18,6 +20,10 @@ public class CommandEvent {
         event.getChannel().sendMessage(message).queue();
     }
 
+    public void reply(MessageEmbed embed) {
+        event.getChannel().sendMessage(embed).queue();
+    }
 
+    
 
 }
