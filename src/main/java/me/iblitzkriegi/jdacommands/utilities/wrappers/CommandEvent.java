@@ -1,5 +1,6 @@
 package me.iblitzkriegi.jdacommands.utilities.wrappers;
 
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -41,6 +42,14 @@ public class CommandEvent {
 
     public MessageChannel getChannel() {
         return event.getChannel();
+    }
+
+    public Guild getGuild() {
+        return event.getGuild();
+    }
+
+    public JDA getJDA() {
+        return event.getJDA();
     }
 
 }
