@@ -1,6 +1,7 @@
 package me.iblitzkriegi.jdacommands.utilities.wrappers;
 
 import me.iblitzkriegi.jdacommands.utilities.Command;
+import net.dv8tion.jda.api.Permission;
 
 public class BuiltCommand {
 
@@ -9,6 +10,7 @@ public class BuiltCommand {
     private String usage;
     private Command commandClass;
     private boolean guildOnly;
+    private Permission[] requiredPermissions;
 
     public BuiltCommand(String name, String description, String usage, Command commandClass) {
         this.name = name;
@@ -17,16 +19,28 @@ public class BuiltCommand {
         this.commandClass = commandClass;
     }
 
+    public Permission[] getRequiredPermissions() {
+        return requiredPermissions;
+    }
+
+    public void setRequiredPermissions(Permission[] requiredPermissions) {
+        this.requiredPermissions = requiredPermissions;
+    }
+
+    public boolean hasRequiredPermissions() {
+        return this.requiredPermissions == null;
+    }
+
     public String getName() {
         return name;
     }
 
-    public Command getCommandClass() {
-        return this.commandClass;
-    }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Command getCommandClass() {
+        return this.commandClass;
     }
 
     public String getDescription() {
@@ -45,12 +59,12 @@ public class BuiltCommand {
         this.usage = usage;
     }
 
-    public void setGuildOnly(boolean guildOnly) {
-        this.guildOnly = guildOnly;
-    }
-
     public boolean isGuildOnly() {
         return this.guildOnly;
+    }
+
+    public void setGuildOnly(boolean guildOnly) {
+        this.guildOnly = guildOnly;
     }
 
 }
