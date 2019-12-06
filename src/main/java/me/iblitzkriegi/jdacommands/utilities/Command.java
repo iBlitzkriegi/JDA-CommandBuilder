@@ -1,7 +1,7 @@
 package me.iblitzkriegi.jdacommands.utilities;
 
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import me.iblitzkriegi.jdacommands.utilities.wrappers.CommandEvent;
 
 public abstract class Command {
-    public abstract void execute(GuildMessageReceivedEvent e, String[] args);
+    public abstract void execute(CommandEvent e, String[] args);
 }
