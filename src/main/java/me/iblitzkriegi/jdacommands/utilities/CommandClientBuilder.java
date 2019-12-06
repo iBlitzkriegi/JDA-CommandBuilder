@@ -1,7 +1,7 @@
 package me.iblitzkriegi.jdacommands.utilities;
 
 import com.google.common.reflect.ClassPath;
-import me.iblitzkriegi.jdacommands.annotations.CommandAnnotation;
+import me.iblitzkriegi.jdacommands.annotations.CommandInfo;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.BuiltCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -13,8 +13,8 @@ public class CommandClientBuilder {
 
     public static HashMap<String, BuiltCommand> commandHashMap = new HashMap<>();
     public static boolean isReady;
-    private String token = null;
     public static String commandStart = null;
+    private String token = null;
 
     public CommandClientBuilder setPrefix(String prefix) {
         commandStart = prefix;
@@ -38,10 +38,10 @@ public class CommandClientBuilder {
             return null;
         }
         for (Class clazz : getAllClasses(mainClass)) {
-            if (!clazz.isAnnotationPresent(CommandAnnotation.CommandInfo.class)) {
+            if (!clazz.isAnnotationPresent(CommandInfo.class)) {
                 continue;
             }
-            CommandAnnotation.CommandInfo commandInfo = (CommandAnnotation.CommandInfo) clazz.getAnnotation(CommandAnnotation.CommandInfo.class);
+            CommandInfo commandInfo = (CommandInfo) clazz.getAnnotation(CommandInfo.class);
             BuiltCommand builtCommand;
             try {
                 builtCommand = new BuiltCommand(commandInfo.name(), commandInfo.desc(), commandInfo.usage(), (Command) clazz.newInstance());
