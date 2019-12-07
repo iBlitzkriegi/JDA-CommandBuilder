@@ -15,7 +15,6 @@ import java.util.HashMap;
 public class CommandClientBuilder {
 
     public static HashMap<String, BuiltCommand> commandHashMap = new HashMap<>();
-    public static boolean isReady;
     public static String commandStart = null;
     private String token = null;
     private boolean useDefaultHelpCommand = true;
@@ -89,7 +88,6 @@ public class CommandClientBuilder {
 
             }
         }
-        isReady = true;
         jda.addEventListener(new CommandListener());
         return jda;
     }
