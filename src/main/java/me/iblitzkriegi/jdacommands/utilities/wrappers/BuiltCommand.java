@@ -10,6 +10,7 @@ public class BuiltCommand {
     private String usage;
     private Command commandClass;
     private boolean guildOnly;
+    private boolean directMessageOnly;
     private Permission[] requiredPermissions;
     private Permission[] requiredChannelPermissions;
 
@@ -42,6 +43,14 @@ public class BuiltCommand {
 
     public boolean hasRequiredChannelPermissions() {
         return this.requiredChannelPermissions != null;
+    }
+
+    public boolean isDirectMessageOnly() {
+        return directMessageOnly;
+    }
+
+    public void setDirectMessageOnly(boolean directMessageOnly) {
+        this.directMessageOnly = directMessageOnly;
     }
 
     public String getName() {
