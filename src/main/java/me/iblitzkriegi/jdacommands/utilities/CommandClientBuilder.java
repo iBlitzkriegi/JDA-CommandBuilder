@@ -14,7 +14,6 @@ import java.util.HashMap;
 
 public class CommandClientBuilder {
 
-    public static HashMap<String, BuiltCommand> commandHashMap = new HashMap<>();
     public static String commandStart = null;
     private String token = null;
     private boolean useDefaultHelpCommand = true;
@@ -49,6 +48,7 @@ public class CommandClientBuilder {
             x.printStackTrace();
             return null;
         }
+        HashMap<String, BuiltCommand> commandHashMap = new HashMap<>();
         for (Class clazz : getAllClasses(mainClass)) {
             if (!clazz.isAnnotationPresent(CommandInfo.class)) {
                 continue;
@@ -69,12 +69,12 @@ public class CommandClientBuilder {
                 return null;
             }
 
-            this.commandHashMap.put(builtCommand.getName(), builtCommand);
+            commandHashMap.put(builtCommand.getName(), builtCommand);
         }
         if (this.useDefaultHelpCommand) {
             try {
                 BuiltCommand builtCommand = new BuiltCommand("help", "The default help command", "help [<commandName>]", Help.class.newInstance());
-                this.commandHashMap.put("help", builtCommand);
+                commandHashMap.put("help", builtCommand);
             } catch (Exception x) {
 
             }
