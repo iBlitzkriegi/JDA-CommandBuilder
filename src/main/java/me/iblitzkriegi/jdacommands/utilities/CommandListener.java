@@ -1,6 +1,7 @@
 package me.iblitzkriegi.jdacommands.utilities;
 
 import me.iblitzkriegi.jdacommands.utilities.wrappers.BuiltCommand;
+import me.iblitzkriegi.jdacommands.utilities.wrappers.CommandClient;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.CommandEvent;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -16,8 +17,8 @@ public class CommandListener extends ListenerAdapter {
             return;
         }
         String[] arguments = event.getMessage().getContentDisplay().split(" ");
-        for (BuiltCommand builtCommand : CommandClientBuilder.commandHashMap.values()) {
-            if (arguments[0].contains(CommandClientBuilder.commandStart + builtCommand.getName().toLowerCase())) {
+        for (BuiltCommand builtCommand : CommandClient.getCommands().values()) {
+            if (arguments[0].contains(CommandClient.getCommandStart() + builtCommand.getName().toLowerCase())) {
                 if (builtCommand.isGuildOnly() && !event.isFromGuild()) {
                     continue;
                 }
