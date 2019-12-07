@@ -12,6 +12,7 @@ import me.iblitzkriegi.jdacommands.utilities.wrappers.BuiltCommand;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.CommandClient;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class CommandClientBuilder {
     private static String commandStart = null;
     private String token = null;
     private boolean useDefaultHelpCommand = true;
+    private boolean useDefaultGame = false;
 
     public CommandClientBuilder useDefaultHelpCommand(boolean bool) {
         this.useDefaultHelpCommand = bool;
@@ -34,6 +36,11 @@ public class CommandClientBuilder {
 
     public CommandClientBuilder setToken(String token) {
         this.token = token;
+        return this;
+    }
+
+    public CommandClientBuilder useDefaultGame() {
+        this.useDefaultGame = true;
         return this;
     }
 
@@ -103,6 +110,9 @@ public class CommandClientBuilder {
         }
         CommandClient commandClient = new CommandClient(this.commandStart, commandHashMap, jda);
         jda.addEventListener(commandClient);
+        if (this.useDefaultGame) {
+            jda.getPresence().setActivity(Activity.playing("Type " + this.commandStart + "help"));
+        }
         return commandClient;
     }
 
