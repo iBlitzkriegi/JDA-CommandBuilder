@@ -2,7 +2,7 @@ package me.iblitzkriegi.jdacommands.utilities;
 
 import com.google.common.reflect.ClassPath;
 import me.iblitzkriegi.jdacommands.annotations.CommandInfo;
-import me.iblitzkriegi.jdacommands.annotations.GuildOnly;
+import me.iblitzkriegi.jdacommands.annotations.executionRules.GuildOnly;
 import me.iblitzkriegi.jdacommands.annotations.RequiredChannelPermissions;
 import me.iblitzkriegi.jdacommands.annotations.RequiredPermissions;
 import me.iblitzkriegi.jdacommands.commands.Help;
