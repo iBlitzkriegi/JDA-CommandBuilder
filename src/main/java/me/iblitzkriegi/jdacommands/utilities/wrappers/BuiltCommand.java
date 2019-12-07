@@ -11,6 +11,7 @@ public class BuiltCommand {
     private Command commandClass;
     private boolean guildOnly;
     private Permission[] requiredPermissions;
+    private Permission[] requiredChannelPermissions;
 
     public BuiltCommand(String name, String description, String usage, Command commandClass) {
         this.name = name;
@@ -25,6 +26,14 @@ public class BuiltCommand {
 
     public void setRequiredPermissions(Permission[] requiredPermissions) {
         this.requiredPermissions = requiredPermissions;
+    }
+
+    public Permission[] getRequiredChannelPermissions() {
+        return requiredChannelPermissions;
+    }
+
+    public void setRequiredChannelPermissions(Permission[] requiredChannelPermissions) {
+        this.requiredChannelPermissions = requiredChannelPermissions;
     }
 
     public boolean hasRequiredPermissions() {
