@@ -28,6 +28,15 @@ public class CommandClientBuilder {
         return this;
     }
 
+    public static BuiltCommand parseCommand(String string) {
+        for (BuiltCommand builtCommand : commandHashMap.values()) {
+            if (builtCommand.getName().equalsIgnoreCase(string)) {
+                return builtCommand;
+            }
+        }
+        return null;
+    }
+
     public JDA build(Class mainClass) {
         if (this.token == null) {
             System.out.println("You must specify a token to be used via CommandClientBuilder#setToken(String token)!");
