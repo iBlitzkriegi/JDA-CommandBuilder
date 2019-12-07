@@ -2,7 +2,6 @@ package me.iblitzkriegi.jdacommands.commands;
 
 import me.iblitzkriegi.jdacommands.annotations.CommandInfo;
 import me.iblitzkriegi.jdacommands.utilities.Command;
-import me.iblitzkriegi.jdacommands.utilities.CommandClient;
 import me.iblitzkriegi.jdacommands.utilities.CommandClientBuilder;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.BuiltCommand;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.CommandEvent;
@@ -19,7 +18,7 @@ public class Help extends Command {
     public void execute(CommandEvent event, String[] args) {
         if (args.length == 0) {
             MessageBuilder messageBuilder = new MessageBuilder();
-            messageBuilder.append("**" + event.getJDA().getSelfUser().getName() +"'s commands**\n");
+            messageBuilder.append("**" + event.getJDA().getSelfUser().getName() + "'s commands**\n");
             for (BuiltCommand builtCommand : CommandClientBuilder.commandHashMap.values()) {
                 messageBuilder.append("`" + builtCommand.getName() + "` - " + builtCommand.getDescription() + "\n");
             }

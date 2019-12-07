@@ -4,10 +4,12 @@ import com.google.common.reflect.ClassPath;
 import me.iblitzkriegi.jdacommands.annotations.CommandInfo;
 import me.iblitzkriegi.jdacommands.annotations.GuildOnly;
 import me.iblitzkriegi.jdacommands.annotations.RequiredPermissions;
+import me.iblitzkriegi.jdacommands.commands.Help;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.BuiltCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,6 +19,21 @@ public class CommandClientBuilder {
     public static boolean isReady;
     public static String commandStart = null;
     private String token = null;
+    private boolean useDefaultHelpCommand = true;
+
+    public static BuiltCommand parseCommand(String string) {
+        for (BuiltCommand builtCommand : commandHashMap.values()) {
+            if (builtCommand.getName().equalsIgnoreCase(string)) {
+                return builtCommand;
+            }
+        }
+        return null;
+    }
+
+    public CommandClientBuilder useDefaultHelpCommand(boolean bool) {
+        this.useDefaultHelpCommand = bool;
+        return this;
+    }
 
     public CommandClientBuilder setPrefix(String prefix) {
         commandStart = prefix;
@@ -26,15 +43,6 @@ public class CommandClientBuilder {
     public CommandClientBuilder setToken(String token) {
         this.token = token;
         return this;
-    }
-
-    public static BuiltCommand parseCommand(String string) {
-        for (BuiltCommand builtCommand : commandHashMap.values()) {
-            if (builtCommand.getName().equalsIgnoreCase(string)) {
-                return builtCommand;
-            }
-        }
-        return null;
     }
 
     public JDA build(Class mainClass) {
@@ -73,6 +81,14 @@ public class CommandClientBuilder {
             }
 
             this.commandHashMap.put(builtCommand.getName(), builtCommand);
+        }
+        if (this.useDefaultHelpCommand) {
+            try {
+                BuiltCommand builtCommand = new BuiltCommand("help", "The default help command", "help [<commandName>]", Help.class.newInstance());
+                this.commandHashMap.put("help", builtCommand);
+            } catch (Exception x) {
+
+            }
         }
         isReady = true;
         jda.addEventListener(new CommandClient());
