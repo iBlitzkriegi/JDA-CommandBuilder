@@ -1,4 +1,4 @@
-package me.iblitzkriegi.jdacommands.annotations;
+package me.iblitzkriegi.jdacommands.annotations.permissions;
 
 import net.dv8tion.jda.api.Permission;
 
@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface RequiredPermissions {
+public @interface RequiredChannelPermissions {
     Permission[] value();
 }
 
