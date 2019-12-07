@@ -25,4 +25,11 @@ public class CommandClient {
         return null;
     }
 
+    public static String getCommandStart() {
+        return commandStart;
+    }
+
+    public static JDA getJda() {
+        return jda;
+    }
 }
