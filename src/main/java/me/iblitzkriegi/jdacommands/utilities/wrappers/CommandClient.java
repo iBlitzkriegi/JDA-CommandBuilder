@@ -1,7 +1,7 @@
 package me.iblitzkriegi.jdacommands.utilities.wrappers;
 
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -47,26 +47,30 @@ public class CommandClient extends ListenerAdapter {
             return;
         }
         String[] arguments = event.getMessage().getContentDisplay().split(" ");
-        for (BuiltCommand builtCommand : commandHashMap.values()) {
-            if (arguments[0].contains(commandStart + builtCommand.getName().toLowerCase())) {
-                if (builtCommand.isGuildOnly() && !event.isFromGuild()) {
-                    continue;
-                }
-                if (builtCommand.hasRequiredPermissions()) {
-                    boolean hasPermission = true;
-                    for (Permission permission : builtCommand.getRequiredPermissions()) {
-                        if (!event.getMember().hasPermission(permission)) {
-                            hasPermission = false;
-                            break;
-                        }
+        if (!arguments[0].startsWith(commandStart)) {
+            return;
+        }
+        BuiltCommand builtCommand = parseCommand(arguments[0].replaceFirst(commandStart, ""));
+        if (builtCommand == null) {
+            return;
+        }
+        if (builtCommand.isGuildOnly() && !event.isFromGuild()) {
+            return;
+        }
+        if (builtCommand.hasRequiredPermissions()) {
+            Member member = event.getMember();
+            if (!member.hasPermission(builtCommand.getRequiredPermissions())) {
+                if (builtCommand.hasRequiredChannelPermissions()) {
+                    if (!member.hasPermission(event.getTextChannel(), builtCommand.getRequiredChannelPermissions())) {
+                        return;
                     }
-                    if (!hasPermission) {
-                        continue;
-                    }
                 }
-                builtCommand.getCommandClass().execute(new CommandEvent(event), Arrays.copyOfRange(arguments, 1, arguments.length));
-
+            }
+        } else if (builtCommand.hasRequiredChannelPermissions()) {
+            if (!event.getMember().hasPermission(event.getTextChannel(), builtCommand.getRequiredChannelPermissions())) {
+                return;
             }
         }
+        builtCommand.getCommandClass().execute(new CommandEvent(event), Arrays.copyOfRange(arguments, 1, arguments.length));
     }
 }
