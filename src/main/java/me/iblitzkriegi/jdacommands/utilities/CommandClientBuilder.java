@@ -2,6 +2,7 @@ package me.iblitzkriegi.jdacommands.utilities;
 
 import com.google.common.reflect.ClassPath;
 import me.iblitzkriegi.jdacommands.annotations.CommandInfo;
+import me.iblitzkriegi.jdacommands.annotations.executionRules.DirectMessageOnly;
 import me.iblitzkriegi.jdacommands.annotations.executionRules.GuildOnly;
 import me.iblitzkriegi.jdacommands.annotations.permissions.RequiredChannelPermissions;
 import me.iblitzkriegi.jdacommands.annotations.permissions.RequiredPermissions;
@@ -60,18 +61,25 @@ public class CommandClientBuilder {
             try {
                 builtCommand = new BuiltCommand(commandInfo.name(), commandInfo.desc(), commandInfo.usage(), (Command) clazz.newInstance());
                 if (clazz.isAnnotationPresent(GuildOnly.class)) {
+                    //TODO Throw IllegalArgumentException if used with DirectMessageOnly
                     builtCommand.setGuildOnly(true);
                 }
                 if (clazz.isAnnotationPresent(RequiredPermissions.class)) {
+                    //TODO Throw IllegalArgumentException if used with DirectMessageOnly
                     RequiredPermissions requiredPermissions = (RequiredPermissions) clazz.getAnnotation(RequiredPermissions.class);
                     builtCommand.setRequiredPermissions(requiredPermissions.value());
                     builtCommand.setGuildOnly(true);
                 }
                 if (clazz.isAnnotationPresent(RequiredChannelPermissions.class)) {
+                    //TODO Throw IllegalArgumentException if used with DirectMessageOnly
                     RequiredChannelPermissions requiredChannelPermissions = (RequiredChannelPermissions) clazz.getAnnotation(RequiredChannelPermissions.class);
                     builtCommand.setRequiredChannelPermissions(requiredChannelPermissions.value());
                     builtCommand.setGuildOnly(true);
                 }
+                if (clazz.isAnnotationPresent(DirectMessageOnly.class)) {
+                    builtCommand.setDirectMessageOnly(true);
+                }
+
             } catch (Exception x) {
                 return null;
             }
