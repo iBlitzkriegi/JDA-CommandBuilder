@@ -56,6 +56,8 @@ public class CommandClient extends ListenerAdapter {
         }
         if (builtCommand.isGuildOnly() && !event.isFromGuild()) {
             return;
+        } else if (builtCommand.isDirectMessageOnly() && event.isFromGuild()) {
+            return;
         }
         if (builtCommand.hasRequiredPermissions()) {
             Member member = event.getMember();
