@@ -80,8 +80,9 @@ public class CommandClientBuilder {
 
             }
         }
-        jda.addEventListener(new CommandListener());
-        return new CommandClient(this.commandStart, commandHashMap, jda);
+        CommandClient commandClient = new CommandClient(this.commandStart, commandHashMap, jda);
+        jda.addEventListener(commandClient);
+        return commandClient;
     }
 
     public ArrayList<Class> getAllClasses(Class input) {
