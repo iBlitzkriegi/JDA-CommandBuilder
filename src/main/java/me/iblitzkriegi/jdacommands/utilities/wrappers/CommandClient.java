@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class CommandClient {
 
-    public static HashMap<String, BuiltCommand> commandHashMap = new HashMap<>();
+    private static HashMap<String, BuiltCommand> commandHashMap = new HashMap<>();
     private static String commandStart = "";
     private static JDA jda;
 
@@ -29,7 +29,11 @@ public class CommandClient {
         return commandStart;
     }
 
-    public static JDA getJda() {
+    public static JDA getJDA() {
         return jda;
+    }
+
+    public static HashMap<String, BuiltCommand> getCommands() {
+        return commandHashMap;
     }
 }
