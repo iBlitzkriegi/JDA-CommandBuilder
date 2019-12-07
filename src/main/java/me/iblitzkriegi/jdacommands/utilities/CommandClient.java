@@ -12,6 +12,9 @@ public class CommandClient extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+        if (event.getAuthor().isBot()) {
+            return;
+        }
         String[] arguments = event.getMessage().getContentDisplay().split(" ");
         for (BuiltCommand builtCommand : CommandClientBuilder.commandHashMap.values()) {
             if (arguments[0].contains(CommandClientBuilder.commandStart + builtCommand.getName().toLowerCase())) {
