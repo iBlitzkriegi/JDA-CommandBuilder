@@ -19,15 +19,6 @@ public class CommandClientBuilder {
     private String token = null;
     private boolean useDefaultHelpCommand = true;
 
-    public static BuiltCommand parseCommand(String string) {
-        for (BuiltCommand builtCommand : commandHashMap.values()) {
-            if (builtCommand.getName().equalsIgnoreCase(string)) {
-                return builtCommand;
-            }
-        }
-        return null;
-    }
-
     public CommandClientBuilder useDefaultHelpCommand(boolean bool) {
         this.useDefaultHelpCommand = bool;
         return this;

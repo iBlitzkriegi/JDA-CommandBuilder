@@ -12,4 +12,13 @@ public class CommandClient {
         this.commandHashMap = commands;
     }
 
+    public static BuiltCommand parseCommand(String string) {
+        for (BuiltCommand builtCommand : commandHashMap.values()) {
+            if (builtCommand.getName().equalsIgnoreCase(string)) {
+                return builtCommand;
+            }
+        }
+        return null;
+    }
+
 }
