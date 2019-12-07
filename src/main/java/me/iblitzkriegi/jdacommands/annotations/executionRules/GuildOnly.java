@@ -1,4 +1,4 @@
-package me.iblitzkriegi.jdacommands.annotations;
+package me.iblitzkriegi.jdacommands.annotations.executionRules;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
