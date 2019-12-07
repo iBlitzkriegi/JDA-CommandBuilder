@@ -28,6 +28,10 @@ public class CommandEvent {
         event.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(message).queue());
     }
 
+    public void replyInDm(Message message) {
+        event.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(message).queue());
+    }
+
     public void reply(MessageEmbed embed) {
         event.getChannel().sendMessage(embed).queue();
     }
