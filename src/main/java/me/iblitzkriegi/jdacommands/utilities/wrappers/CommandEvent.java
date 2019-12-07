@@ -20,6 +20,10 @@ public class CommandEvent {
         event.getChannel().sendMessage(message).queue();
     }
 
+    public void reply(Message message) {
+        event.getChannel().sendMessage(message).queue();
+    }
+
     public void reply(MessageEmbed embed) {
         event.getChannel().sendMessage(embed).queue();
     }
