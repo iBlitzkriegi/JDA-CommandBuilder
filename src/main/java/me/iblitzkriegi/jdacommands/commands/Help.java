@@ -26,6 +26,9 @@ public class Help extends Command {
                 event.reply("My help menu has been sent to your DM's " + event.getAuthor().getAsMention() + "!");
             }
             return;
+        } else if (args.length != 1) {
+            event.reply("You can only include a singular command to get information about.");
+            return;
         }
         //Take args[0] as a specified command and check CommandClientbuilder#commandHashMap for the command.
     }
