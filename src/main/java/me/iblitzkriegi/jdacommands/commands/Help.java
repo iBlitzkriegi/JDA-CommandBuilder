@@ -4,6 +4,7 @@ import me.iblitzkriegi.jdacommands.annotations.CommandInfo;
 import me.iblitzkriegi.jdacommands.utilities.Command;
 import me.iblitzkriegi.jdacommands.utilities.CommandClientBuilder;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.BuiltCommand;
+import me.iblitzkriegi.jdacommands.utilities.wrappers.CommandClient;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.CommandEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
@@ -19,7 +20,7 @@ public class Help extends Command {
         if (args.length == 0) {
             MessageBuilder messageBuilder = new MessageBuilder();
             messageBuilder.append("**" + event.getJDA().getSelfUser().getName() + "'s commands**\n");
-            for (BuiltCommand builtCommand : CommandClientBuilder.commandHashMap.values()) {
+            for (BuiltCommand builtCommand : CommandClient.getCommands().values()) {
                 messageBuilder.append("`" + builtCommand.getName() + "` - " + builtCommand.getDescription() + "\n");
             }
             event.replyInDm(messageBuilder.build());
@@ -31,9 +32,9 @@ public class Help extends Command {
             event.reply("You can only include a singular command to get information about.");
             return;
         }
-        BuiltCommand builtCommand = CommandClientBuilder.parseCommand(args[0]);
+        BuiltCommand builtCommand = CommandClient.parseCommand(args[0]);
         if (builtCommand == null) {
-            event.reply("The provided input was not recognized as a valid command. Type `" + CommandClientBuilder.commandStart + "help` to see all the possible commands.");
+            event.reply("The provided input was not recognized as a valid command. Type `" + CommandClient.getCommandStart() + "help` to see all the possible commands.");
             return;
         }
         EmbedBuilder embedBuilder = new EmbedBuilder();
