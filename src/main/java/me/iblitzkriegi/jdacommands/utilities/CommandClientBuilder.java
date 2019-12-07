@@ -2,6 +2,7 @@ package me.iblitzkriegi.jdacommands.utilities;
 
 import com.google.common.reflect.ClassPath;
 import me.iblitzkriegi.jdacommands.annotations.CommandInfo;
+import me.iblitzkriegi.jdacommands.annotations.exceptions.IllegalAnnotationException;
 import me.iblitzkriegi.jdacommands.annotations.executionRules.DirectMessageOnly;
 import me.iblitzkriegi.jdacommands.annotations.executionRules.GuildOnly;
 import me.iblitzkriegi.jdacommands.annotations.permissions.RequiredChannelPermissions;
@@ -61,17 +62,23 @@ public class CommandClientBuilder {
             try {
                 builtCommand = new BuiltCommand(commandInfo.name(), commandInfo.desc(), commandInfo.usage(), (Command) clazz.newInstance());
                 if (clazz.isAnnotationPresent(GuildOnly.class)) {
-                    //TODO Throw IllegalArgumentException if used with DirectMessageOnly
+                    if (clazz.isAnnotationPresent(DirectMessageOnly.class)) {
+                        throw new IllegalAnnotationException();
+                    }
                     builtCommand.setGuildOnly(true);
                 }
                 if (clazz.isAnnotationPresent(RequiredPermissions.class)) {
-                    //TODO Throw IllegalArgumentException if used with DirectMessageOnly
+                    if (clazz.isAnnotationPresent(DirectMessageOnly.class)) {
+                        throw new IllegalAnnotationException();
+                    }
                     RequiredPermissions requiredPermissions = (RequiredPermissions) clazz.getAnnotation(RequiredPermissions.class);
                     builtCommand.setRequiredPermissions(requiredPermissions.value());
                     builtCommand.setGuildOnly(true);
                 }
                 if (clazz.isAnnotationPresent(RequiredChannelPermissions.class)) {
-                    //TODO Throw IllegalArgumentException if used with DirectMessageOnly
+                    if (clazz.isAnnotationPresent(DirectMessageOnly.class)) {
+                        throw new IllegalAnnotationException();
+                    }
                     RequiredChannelPermissions requiredChannelPermissions = (RequiredChannelPermissions) clazz.getAnnotation(RequiredChannelPermissions.class);
                     builtCommand.setRequiredChannelPermissions(requiredChannelPermissions.value());
                     builtCommand.setGuildOnly(true);
@@ -79,12 +86,12 @@ public class CommandClientBuilder {
                 if (clazz.isAnnotationPresent(DirectMessageOnly.class)) {
                     builtCommand.setDirectMessageOnly(true);
                 }
+                commandHashMap.put(builtCommand.getName(), builtCommand);
 
             } catch (Exception x) {
-                return null;
+                x.printStackTrace();
             }
 
-            commandHashMap.put(builtCommand.getName(), builtCommand);
         }
         if (this.useDefaultHelpCommand) {
             try {
