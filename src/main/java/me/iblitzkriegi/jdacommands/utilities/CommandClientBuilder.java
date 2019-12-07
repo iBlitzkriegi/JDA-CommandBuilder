@@ -6,6 +6,7 @@ import me.iblitzkriegi.jdacommands.annotations.GuildOnly;
 import me.iblitzkriegi.jdacommands.annotations.RequiredPermissions;
 import me.iblitzkriegi.jdacommands.commands.Help;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.BuiltCommand;
+import me.iblitzkriegi.jdacommands.utilities.wrappers.CommandClient;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 
@@ -14,7 +15,7 @@ import java.util.HashMap;
 
 public class CommandClientBuilder {
 
-    public static String commandStart = null;
+    private static String commandStart = null;
     private String token = null;
     private boolean useDefaultHelpCommand = true;
 
@@ -24,7 +25,7 @@ public class CommandClientBuilder {
     }
 
     public CommandClientBuilder setPrefix(String prefix) {
-        commandStart = prefix;
+        this.commandStart = prefix;
         return this;
     }
 
@@ -33,7 +34,7 @@ public class CommandClientBuilder {
         return this;
     }
 
-    public JDA build(Class mainClass) {
+    public CommandClient build(Class mainClass) {
         if (this.token == null) {
             System.out.println("You must specify a token to be used via CommandClientBuilder#setToken(String token)!");
             return null;
@@ -80,7 +81,7 @@ public class CommandClientBuilder {
             }
         }
         jda.addEventListener(new CommandListener());
-        return jda;
+        return new CommandClient(this.commandStart, commandHashMap, jda);
     }
 
     public ArrayList<Class> getAllClasses(Class input) {
