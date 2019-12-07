@@ -40,6 +40,10 @@ public class BuiltCommand {
         return this.requiredPermissions != null;
     }
 
+    public boolean hasRequiredChannelPermissions() {
+        return this.requiredChannelPermissions != null;
+    }
+
     public String getName() {
         return name;
     }
