@@ -9,7 +9,6 @@ import me.iblitzkriegi.jdacommands.utilities.wrappers.BuiltCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -91,7 +90,7 @@ public class CommandClientBuilder {
             }
         }
         isReady = true;
-        jda.addEventListener(new CommandClient());
+        jda.addEventListener(new CommandListener());
         return jda;
     }
 
