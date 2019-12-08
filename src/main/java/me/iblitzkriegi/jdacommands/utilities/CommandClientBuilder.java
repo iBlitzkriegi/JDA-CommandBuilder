@@ -5,6 +5,7 @@ import ch.qos.logback.classic.Logger;
 import com.google.common.reflect.ClassPath;
 import me.iblitzkriegi.jdacommands.annotations.CommandInfo;
 import me.iblitzkriegi.jdacommands.annotations.exceptions.IllegalAnnotationException;
+import me.iblitzkriegi.jdacommands.annotations.exceptions.TokenNotProvidedException;
 import me.iblitzkriegi.jdacommands.annotations.executionRules.DirectMessageOnly;
 import me.iblitzkriegi.jdacommands.annotations.executionRules.GuildOnly;
 import me.iblitzkriegi.jdacommands.annotations.permissions.RequiredChannelPermissions;
@@ -71,8 +72,7 @@ public class CommandClientBuilder {
 
     public CommandClient build(Class mainClass) {
         if (this.token == null) {
-            System.out.println("You must specify a token to be used via CommandClientBuilder#setToken(String token)!");
-            return null;
+            throw new TokenNotProvidedException();
         }
         JDABuilder jdaBuilder = new JDABuilder();
         JDA jda;
