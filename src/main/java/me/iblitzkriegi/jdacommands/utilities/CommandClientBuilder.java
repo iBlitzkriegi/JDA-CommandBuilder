@@ -1,5 +1,7 @@
 package me.iblitzkriegi.jdacommands.utilities;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 import com.google.common.reflect.ClassPath;
 import me.iblitzkriegi.jdacommands.annotations.CommandInfo;
 import me.iblitzkriegi.jdacommands.annotations.exceptions.IllegalAnnotationException;
@@ -13,6 +15,7 @@ import me.iblitzkriegi.jdacommands.utilities.wrappers.CommandClient;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,11 +24,28 @@ public class CommandClientBuilder {
 
     private static String commandStart = null;
     private String token = null;
-    private boolean useDefaultHelpCommand = true;
+    private boolean useDefaultHelpCommand = false;
     private boolean useDefaultGame = false;
 
-    public CommandClientBuilder useDefaultHelpCommand(boolean bool) {
-        this.useDefaultHelpCommand = bool;
+    public CommandClientBuilder setLoggingLevel(LogLevel level) {
+        Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+        switch (level) {
+            case ALL:
+                root.setLevel(Level.ALL);
+            case OFF:
+                root.setLevel(Level.OFF);
+            case INFO:
+                root.setLevel(Level.INFO);
+            case DEBUG:
+                root.setLevel(Level.DEBUG);
+            case ERROR:
+                root.setLevel(Level.ERROR);
+        }
+        return this;
+    }
+
+    public CommandClientBuilder useDefaultHelpCommand() {
+        this.useDefaultHelpCommand = true;
         return this;
     }
 
@@ -102,7 +122,7 @@ public class CommandClientBuilder {
         }
         if (this.useDefaultHelpCommand) {
             try {
-                BuiltCommand builtCommand = new BuiltCommand("help", "The default help command", "help [<commandName>]", Help.class.newInstance());
+                BuiltCommand builtCommand = new BuiltCommand("help", "The default help command", "help [<commandName>]", new Help());
                 commandHashMap.put("help", builtCommand);
             } catch (Exception x) {
 
@@ -130,6 +150,10 @@ public class CommandClientBuilder {
             }
         }
         return classes;
+    }
+
+    enum LogLevel {
+        OFF, ALL, DEBUG, ERROR, INFO
     }
 
 }
