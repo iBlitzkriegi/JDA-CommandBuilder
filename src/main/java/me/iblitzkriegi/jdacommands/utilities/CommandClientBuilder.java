@@ -32,14 +32,19 @@ public class CommandClientBuilder {
         switch (level) {
             case ALL:
                 root.setLevel(Level.ALL);
+                break;
             case OFF:
                 root.setLevel(Level.OFF);
+                break;
             case INFO:
                 root.setLevel(Level.INFO);
+                break;
             case DEBUG:
                 root.setLevel(Level.DEBUG);
+                break;
             case ERROR:
                 root.setLevel(Level.ERROR);
+                break;
         }
         return this;
     }
@@ -152,7 +157,7 @@ public class CommandClientBuilder {
         return classes;
     }
 
-    enum LogLevel {
+    public enum LogLevel {
         OFF, ALL, DEBUG, ERROR, INFO
     }
 
