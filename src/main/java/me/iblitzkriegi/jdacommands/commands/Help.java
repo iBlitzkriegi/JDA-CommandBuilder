@@ -2,7 +2,6 @@ package me.iblitzkriegi.jdacommands.commands;
 
 import me.iblitzkriegi.jdacommands.annotations.CommandInfo;
 import me.iblitzkriegi.jdacommands.utilities.Command;
-import me.iblitzkriegi.jdacommands.utilities.CommandClientBuilder;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.BuiltCommand;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.CommandClient;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.CommandEvent;
