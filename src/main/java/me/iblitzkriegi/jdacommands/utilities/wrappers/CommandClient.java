@@ -22,12 +22,12 @@ public class CommandClient extends ListenerAdapter {
     }
 
     public static BuiltCommand parseCommand(String string) {
-        for (BuiltCommand builtCommand : commandHashMap.values()) {
-            if (builtCommand.getName().equalsIgnoreCase(string)) {
-                return builtCommand;
-            }
-        }
-        return null;
+        BuiltCommand builtCommand = commandHashMap.values()
+                .stream()
+                .filter(command -> command.getName().equalsIgnoreCase(string))
+                .findFirst()
+                .orElse(null);
+        return builtCommand;
     }
 
     public static String getCommandStart() {
