@@ -27,6 +27,7 @@ public class CommandClientBuilder {
     private String token = null;
     private boolean useDefaultHelpCommand = false;
     private boolean useDefaultGame = false;
+    private String[] ownerIds = null;
 
     public CommandClientBuilder setLoggingLevel(LogLevel level) {
         Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);

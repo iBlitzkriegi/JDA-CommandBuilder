@@ -13,6 +13,7 @@ public class CommandClient extends ListenerAdapter {
     private static HashMap<String, BuiltCommand> commandHashMap = new HashMap<>();
     private static String commandStart = "";
     private static JDA jda;
+    private String[] ownerIds;
 
     public CommandClient(String prefix, HashMap<String, BuiltCommand> commands, JDA jda) {
         this.commandStart = prefix;
@@ -40,17 +41,20 @@ public class CommandClient extends ListenerAdapter {
     public static HashMap<String, BuiltCommand> getCommands() {
         return commandHashMap;
     }
-
+    
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) {
             return;
         }
-        String[] arguments = event.getMessage().getContentDisplay().split(" ");
-        if (!arguments[0].startsWith(commandStart)) {
-            return;
+        String content = event.getMessage().getContentDisplay();
+        String[] arguments = content.contains(" ") ? content.split(" ") : new String[]{content};
+        if (commandStart != null) {
+            if (!arguments[0].startsWith(commandStart)) {
+                return;
+            }
         }
-        BuiltCommand builtCommand = parseCommand(arguments[0].replaceFirst(commandStart, ""));
+        BuiltCommand builtCommand = commandStart != null ? parseCommand(arguments[0].replaceFirst(commandStart, "")) : parseCommand(arguments[0]);
         if (builtCommand == null) {
             return;
         }
