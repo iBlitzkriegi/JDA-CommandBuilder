@@ -41,7 +41,11 @@ public class CommandClient extends ListenerAdapter {
     public static HashMap<String, BuiltCommand> getCommands() {
         return commandHashMap;
     }
-    
+
+    public void setOwnerIds(String[] ownerIds) {
+        this.ownerIds = ownerIds;
+    }
+
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) {

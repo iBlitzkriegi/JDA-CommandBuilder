@@ -71,6 +71,10 @@ public class CommandClientBuilder {
         return this;
     }
 
+    public void setOwnerIds(String[] ownerIds) {
+        this.ownerIds = ownerIds;
+    }
+
     public CommandClient build(Class mainClass) {
         if (this.token == null) {
             throw new TokenNotProvidedException();
@@ -135,6 +139,7 @@ public class CommandClientBuilder {
             }
         }
         CommandClient commandClient = new CommandClient(this.commandStart, commandHashMap, jda);
+        commandClient.setOwnerIds(this.ownerIds == null ? null : this.ownerIds);
         jda.addEventListener(commandClient);
         if (this.useDefaultGame) {
             jda.getPresence().setActivity(Activity.playing("Type " + this.commandStart + "help"));
