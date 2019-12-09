@@ -8,6 +8,7 @@ import me.iblitzkriegi.jdacommands.annotations.exceptions.IllegalAnnotationExcep
 import me.iblitzkriegi.jdacommands.annotations.exceptions.TokenNotProvidedException;
 import me.iblitzkriegi.jdacommands.annotations.executionRules.DirectMessageOnly;
 import me.iblitzkriegi.jdacommands.annotations.executionRules.GuildOnly;
+import me.iblitzkriegi.jdacommands.annotations.executionRules.OwnerOnly;
 import me.iblitzkriegi.jdacommands.annotations.permissions.RequiredChannelPermissions;
 import me.iblitzkriegi.jdacommands.annotations.permissions.RequiredPermissions;
 import me.iblitzkriegi.jdacommands.commands.Help;
@@ -104,6 +105,12 @@ public class CommandClientBuilder {
                         throw new IllegalAnnotationException();
                     }
                     builtCommand.setGuildOnly(true);
+                }
+                if (clazz.isAnnotationPresent(OwnerOnly.class)) {
+                    if (clazz.isAnnotationPresent(RequiredPermissions.class) || clazz.isAnnotationPresent(RequiredChannelPermissions.class)) {
+                        throw new IllegalStateException("You may not combine OwnerOnly with Guild permission annotations");
+                    }
+                    builtCommand.setOwnersOnly(true);
                 }
                 if (clazz.isAnnotationPresent(RequiredPermissions.class)) {
                     if (clazz.isAnnotationPresent(DirectMessageOnly.class)) {
