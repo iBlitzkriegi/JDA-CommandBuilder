@@ -19,9 +19,8 @@ public class Help extends Command {
         if (args.length == 0) {
             MessageBuilder messageBuilder = new MessageBuilder();
             messageBuilder.append("**" + event.getJDA().getSelfUser().getName() + "'s commands**\n");
-            for (BuiltCommand builtCommand : CommandClient.getCommands().values()) {
-                messageBuilder.append("`" + builtCommand.getName() + "` - " + builtCommand.getDescription() + "\n");
-            }
+            CommandClient.getCommands().values().stream()
+                    .forEach(builtCommand -> messageBuilder.append("`" + builtCommand.getName() + "` - " + builtCommand.getDescription() + "\n"));
             event.replyInDm(messageBuilder.build());
             if (event.isFromGuild()) {
                 event.reply("My help menu has been sent to your DM's " + event.getAuthor().getAsMention() + "!");
