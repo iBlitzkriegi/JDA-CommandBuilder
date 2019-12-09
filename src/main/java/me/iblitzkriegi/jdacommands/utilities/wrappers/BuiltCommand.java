@@ -13,12 +13,17 @@ public class BuiltCommand {
     private boolean directMessageOnly;
     private Permission[] requiredPermissions;
     private Permission[] requiredChannelPermissions;
+    private boolean ownersOnly = false;
 
     public BuiltCommand(String name, String description, String usage, Command commandClass) {
         this.name = name;
         this.description = description;
         this.usage = usage;
         this.commandClass = commandClass;
+    }
+
+    public void setOwnersOnly(boolean ownersOnly) {
+        this.ownersOnly = ownersOnly;
     }
 
     public Permission[] getRequiredPermissions() {
