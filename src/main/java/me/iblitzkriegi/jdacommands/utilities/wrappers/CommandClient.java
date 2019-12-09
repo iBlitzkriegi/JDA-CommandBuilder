@@ -47,12 +47,10 @@ public class CommandClient extends ListenerAdapter {
     }
 
     public boolean isOwner(long id) {
-        for (long owner : ownerIds) {
-            if (id == owner) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(ownerIds)
+                .filter(own -> own == id)
+                .findFirst()
+                .isPresent();
     }
 
     @Override
