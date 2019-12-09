@@ -26,6 +26,10 @@ public class BuiltCommand {
         this.ownersOnly = ownersOnly;
     }
 
+    public boolean isOwnersOnly() {
+        return ownersOnly;
+    }
+
     public Permission[] getRequiredPermissions() {
         return requiredPermissions;
     }
