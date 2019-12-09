@@ -150,7 +150,7 @@ public class CommandClientBuilder {
         commandClient.setOwnerIds(this.ownerIds == null ? null : this.ownerIds);
         jda.addEventListener(commandClient);
         if (this.useDefaultGame) {
-            jda.getPresence().setActivity(Activity.playing("Type " + this.commandStart + "help"));
+            jda.getPresence().setActivity(Activity.playing("Type " + (commandStart == null ? "" : commandStart) + "help"));
         }
         return commandClient;
     }
