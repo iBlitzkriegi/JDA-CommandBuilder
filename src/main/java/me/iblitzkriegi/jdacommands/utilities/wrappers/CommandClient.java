@@ -13,7 +13,7 @@ public class CommandClient extends ListenerAdapter {
     private static HashMap<String, BuiltCommand> commandHashMap = new HashMap<>();
     private static String commandStart = "";
     private static JDA jda;
-    private String[] ownerIds;
+    private long[] ownerIds;
 
     public CommandClient(String prefix, HashMap<String, BuiltCommand> commands, JDA jda) {
         this.commandStart = prefix;
@@ -42,7 +42,7 @@ public class CommandClient extends ListenerAdapter {
         return commandHashMap;
     }
 
-    public void setOwnerIds(String[] ownerIds) {
+    public void setOwnerIds(long[] ownerIds) {
         this.ownerIds = ownerIds;
     }
 

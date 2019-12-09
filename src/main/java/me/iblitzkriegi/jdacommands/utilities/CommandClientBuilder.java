@@ -27,7 +27,7 @@ public class CommandClientBuilder {
     private String token = null;
     private boolean useDefaultHelpCommand = false;
     private boolean useDefaultGame = false;
-    private String[] ownerIds = null;
+    private long[] ownerIds = null;
 
     public CommandClientBuilder setLoggingLevel(LogLevel level) {
         Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
@@ -71,8 +71,9 @@ public class CommandClientBuilder {
         return this;
     }
 
-    public void setOwnerIds(String[] ownerIds) {
+    public CommandClientBuilder setOwnerIds(long... ownerIds) {
         this.ownerIds = ownerIds;
+        return this;
     }
 
     public CommandClient build(Class mainClass) {
