@@ -163,11 +163,10 @@ public class CommandClientBuilder {
             return null;
         }
         ArrayList<Class> classes = new ArrayList<>();
-        for (ClassPath.ClassInfo classInfo : classPath.getAllClasses()) {
-            if (classInfo.getPackageName().contains(input.getPackage().getName())) {
-                classes.add(classInfo.load());
-            }
-        }
+        classPath.getAllClasses()
+                .stream()
+                .filter(classInfo -> classInfo.getPackageName().contains(input.getPackage().getName()))
+                .forEach(classInfo -> classes.add(classInfo.load()));
         return classes;
     }
 
