@@ -46,6 +46,15 @@ public class CommandClient extends ListenerAdapter {
         this.ownerIds = ownerIds;
     }
 
+    public boolean isOwner(long id) {
+        for (long owner : ownerIds) {
+            if (id == owner) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) {
@@ -72,13 +81,17 @@ public class CommandClient extends ListenerAdapter {
             if (!member.hasPermission(builtCommand.getRequiredPermissions())) {
                 if (builtCommand.hasRequiredChannelPermissions()) {
                     if (!member.hasPermission(event.getTextChannel(), builtCommand.getRequiredChannelPermissions())) {
-                        return;
+                        if (!isOwner(member.getIdLong())) {
+                            return;
+                        }
                     }
                 }
             }
         } else if (builtCommand.hasRequiredChannelPermissions()) {
             if (!event.getMember().hasPermission(event.getTextChannel(), builtCommand.getRequiredChannelPermissions())) {
-                return;
+                if (!isOwner(event.getMember().getIdLong())) {
+                    return;
+                }
             }
         }
         builtCommand.getCommandClass().execute(new CommandEvent(event), Arrays.copyOfRange(arguments, 1, arguments.length));
