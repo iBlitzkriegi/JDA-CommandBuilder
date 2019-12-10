@@ -18,11 +18,12 @@ public class BuiltCommand {
     private String[] aliases;
     private boolean ownersOnly = false;
 
-    public BuiltCommand(String name, String description, String usage, Command commandClass) {
+    public BuiltCommand(String name, String description, String usage, String[] aliases, Command commandClass) {
         this.name = name;
         this.description = description;
         this.usage = usage;
         this.commandClass = commandClass;
+        this.aliases = aliases;
     }
 
     public boolean isOwnersOnly() {
