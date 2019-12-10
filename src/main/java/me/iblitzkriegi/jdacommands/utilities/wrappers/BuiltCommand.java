@@ -3,6 +3,8 @@ package me.iblitzkriegi.jdacommands.utilities.wrappers;
 import me.iblitzkriegi.jdacommands.utilities.Command;
 import net.dv8tion.jda.api.Permission;
 
+import java.util.Arrays;
+
 public class BuiltCommand {
 
     private String name;
@@ -13,7 +15,7 @@ public class BuiltCommand {
     private boolean directMessageOnly;
     private Permission[] requiredPermissions;
     private Permission[] requiredChannelPermissions;
-    private String[] alliases;
+    private String[] aliases;
     private boolean ownersOnly = false;
 
     public BuiltCommand(String name, String description, String usage, Command commandClass) {
@@ -23,20 +25,27 @@ public class BuiltCommand {
         this.commandClass = commandClass;
     }
 
-    public void setOwnersOnly(boolean ownersOnly) {
-        this.ownersOnly = ownersOnly;
-    }
-
     public boolean isOwnersOnly() {
         return ownersOnly;
     }
 
-    public boolean hasAliases() {
-        return this.alliases != null;
+    public void setOwnersOnly(boolean ownersOnly) {
+        this.ownersOnly = ownersOnly;
     }
 
-    public String[] getAlliases() {
-        return alliases;
+    public boolean hasAliases() {
+        return this.aliases != null;
+    }
+
+    public String[] getAliases() {
+        return aliases;
+    }
+
+    public boolean hasAlias(String name) {
+        return Arrays.stream(aliases)
+                .filter(a -> a.contains(name))
+                .findFirst()
+                .isPresent();
     }
 
     public Permission[] getRequiredPermissions() {
