@@ -19,8 +19,9 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CommandClientBuilder {
 
@@ -155,19 +156,18 @@ public class CommandClientBuilder {
         return commandClient;
     }
 
-    public ArrayList<Class> getAllClasses(Class input) {
+    public List<Class<?>> getAllClasses(Class input) {
         ClassPath classPath;
         try {
             classPath = ClassPath.from(input.getClassLoader());
         } catch (Exception x) {
             return null;
         }
-        ArrayList<Class> classes = new ArrayList<>();
-        classPath.getAllClasses()
+        return classPath.getAllClasses()
                 .stream()
                 .filter(classInfo -> classInfo.getPackageName().contains(input.getPackage().getName()))
-                .forEach(classInfo -> classes.add(classInfo.load()));
-        return classes;
+                .map(ClassPath.ClassInfo::load)
+                .collect(Collectors.toList());
     }
 
     public enum LogLevel {
