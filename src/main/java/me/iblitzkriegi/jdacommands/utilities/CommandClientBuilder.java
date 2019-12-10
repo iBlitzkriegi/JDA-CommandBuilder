@@ -99,7 +99,7 @@ public class CommandClientBuilder {
             CommandInfo commandInfo = (CommandInfo) clazz.getAnnotation(CommandInfo.class);
             BuiltCommand builtCommand;
             try {
-                builtCommand = new BuiltCommand(commandInfo.name(), commandInfo.desc(), commandInfo.usage(), (Command) clazz.newInstance());
+                builtCommand = new BuiltCommand(commandInfo.name(), commandInfo.desc(), commandInfo.usage(), commandInfo.aliases(), (Command) clazz.newInstance());
                 if (clazz.isAnnotationPresent(GuildOnly.class)) {
                     if (clazz.isAnnotationPresent(DirectMessageOnly.class)) {
                         throw new IllegalAnnotationException();
@@ -140,7 +140,7 @@ public class CommandClientBuilder {
         }
         if (this.useDefaultHelpCommand) {
             try {
-                BuiltCommand builtCommand = new BuiltCommand("help", "The default help command", "help [<commandName>]", new Help());
+                BuiltCommand builtCommand = new BuiltCommand("help", "The default help command", "help [<commandName>]", new String[]{}, new Help());
                 commandHashMap.put("help", builtCommand);
             } catch (Exception x) {
 
