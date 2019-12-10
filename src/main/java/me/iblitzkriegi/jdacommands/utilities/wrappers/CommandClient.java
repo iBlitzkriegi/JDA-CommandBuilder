@@ -24,7 +24,7 @@ public class CommandClient extends ListenerAdapter {
     public static BuiltCommand parseCommand(String string) {
         BuiltCommand builtCommand = commandHashMap.values()
                 .stream()
-                .filter(command -> command.getName().equalsIgnoreCase(string))
+                .filter(command -> command.getName().equalsIgnoreCase(string) || command.hasAlias(string))
                 .findFirst()
                 .orElse(null);
         return builtCommand;
