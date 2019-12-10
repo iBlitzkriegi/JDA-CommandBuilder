@@ -1,6 +1,7 @@
 package me.iblitzkriegi.jdacommands.utilities.wrappers;
 
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -51,6 +52,10 @@ public class CommandClient extends ListenerAdapter {
                 .filter(own -> own == id)
                 .findFirst()
                 .isPresent();
+    }
+
+    public void setStatus(Activity activity) {
+        this.jda.getPresence().setActivity(activity);
     }
 
     @Override
