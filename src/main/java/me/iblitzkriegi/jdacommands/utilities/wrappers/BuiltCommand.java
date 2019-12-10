@@ -13,6 +13,7 @@ public class BuiltCommand {
     private boolean directMessageOnly;
     private Permission[] requiredPermissions;
     private Permission[] requiredChannelPermissions;
+    private String[] alliases;
     private boolean ownersOnly = false;
 
     public BuiltCommand(String name, String description, String usage, Command commandClass) {
@@ -28,6 +29,14 @@ public class BuiltCommand {
 
     public boolean isOwnersOnly() {
         return ownersOnly;
+    }
+
+    public boolean hasAliases() {
+        return this.alliases != null;
+    }
+
+    public String[] getAlliases() {
+        return alliases;
     }
 
     public Permission[] getRequiredPermissions() {
