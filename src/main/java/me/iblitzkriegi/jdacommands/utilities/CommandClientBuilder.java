@@ -21,7 +21,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class CommandClientBuilder {
 
@@ -167,7 +168,7 @@ public class CommandClientBuilder {
                 .stream()
                 .filter(classInfo -> classInfo.getPackageName().contains(input.getPackage().getName()))
                 .map(ClassPath.ClassInfo::load)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     public enum LogLevel {

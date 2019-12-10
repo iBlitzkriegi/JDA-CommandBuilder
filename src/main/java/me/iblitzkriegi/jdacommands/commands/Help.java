@@ -44,6 +44,9 @@ public class Help extends Command {
         if (!builtCommand.getUsage().isEmpty()) {
             embedBuilder.addField("Command Usage", builtCommand.getUsage(), false);
         }
+        if (builtCommand.hasAliases()) {
+            embedBuilder.addField("Command Aliases", String.join(" ", builtCommand.getAliases()) , false);
+        }
         event.reply(embedBuilder.build());
     }
 }
