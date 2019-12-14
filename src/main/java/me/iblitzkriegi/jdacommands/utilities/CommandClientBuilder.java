@@ -91,7 +91,9 @@ public class CommandClientBuilder {
         JDABuilder jdaBuilder = new JDABuilder();
         JDA jda;
         jdaBuilder.setToken(this.token);
-        jdaBuilder.addEventListeners(this.eventListeners);
+        if (this.eventListeners != null) {
+            jdaBuilder.addEventListeners(this.eventListeners);
+        }
         try {
             jda = jdaBuilder.build().awaitReady();
         } catch (Exception x) {
