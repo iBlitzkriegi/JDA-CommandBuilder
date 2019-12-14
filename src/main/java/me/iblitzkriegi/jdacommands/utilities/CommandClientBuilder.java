@@ -163,7 +163,7 @@ public class CommandClientBuilder {
         return commandClient;
     }
 
-    public List<Class<?>> getAllClasses(Class input) {
+    private List<Class<?>> getAllClasses(Class input) {
         ClassPath classPath;
         try {
             classPath = ClassPath.from(input.getClassLoader());
