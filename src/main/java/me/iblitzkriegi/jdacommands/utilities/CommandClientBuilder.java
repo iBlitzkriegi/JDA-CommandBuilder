@@ -19,8 +19,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -31,6 +30,7 @@ public class CommandClientBuilder {
     private boolean useDefaultHelpCommand = false;
     private boolean useDefaultGame = false;
     private long[] ownerIds = null;
+    private Object[] eventListeners;
 
     public CommandClientBuilder setLoggingLevel(LogLevel level) {
         Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
@@ -69,6 +69,11 @@ public class CommandClientBuilder {
         return this;
     }
 
+    public CommandClientBuilder addEventListeners(Object... eventListeners) {
+        this.eventListeners = eventListeners;
+        return this;
+    }
+
     public CommandClientBuilder useDefaultGame() {
         this.useDefaultGame = true;
         return this;
@@ -79,13 +84,14 @@ public class CommandClientBuilder {
         return this;
     }
 
-    public CommandClient build(Class mainClass) {
+    public CommandClient build(Class mainClass)  {
         if (this.token == null) {
             throw new TokenNotProvidedException();
         }
         JDABuilder jdaBuilder = new JDABuilder();
         JDA jda;
         jdaBuilder.setToken(this.token);
+        jdaBuilder.addEventListeners(this.eventListeners);
         try {
             jda = jdaBuilder.build().awaitReady();
         } catch (Exception x) {
