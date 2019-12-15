@@ -11,7 +11,7 @@ public class CommandClient {
     private static HashMap<String, BuiltCommand> commandHashMap = new HashMap<>();
     private static String commandStart = "";
     private static JDA jda;
-    public static long[] ownerIds;
+    private static long[] ownerIds;
 
     public CommandClient(String prefix, HashMap<String, BuiltCommand> commands, JDA jda) {
         this.commandStart = prefix;
