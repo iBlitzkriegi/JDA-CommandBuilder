@@ -150,7 +150,7 @@ public class CommandClientBuilder {
         }
         if (this.useDefaultHelpCommand) {
             try {
-                BuiltCommand builtCommand = new BuiltCommand("help", "The default help command", "help [<commandName>]", new String[]{}, new Help());
+                BuiltCommand builtCommand = new BuiltCommand("help", "The default help command", "help [<commandName>]", null, new Help());
                 commandHashMap.put("help", builtCommand);
             } catch (Exception x) {
 
