@@ -12,7 +12,7 @@ public @interface CommandInfo {
     String name();
     String desc();
     String usage();
-    String[] aliases() default "";
+    String[] aliases() default "NONE";
 }
 
 
