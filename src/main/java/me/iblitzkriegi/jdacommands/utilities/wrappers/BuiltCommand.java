@@ -35,6 +35,11 @@ public class BuiltCommand {
     }
 
     public boolean hasAliases() {
+        if (this.aliases != null) {
+            if (this.aliases[0].contentEquals("NONE")) {
+                return false;
+            }
+        }
         return this.aliases != null;
     }
 
@@ -43,6 +48,9 @@ public class BuiltCommand {
     }
 
     public boolean hasAlias(String name) {
+        if (this.aliases == null) {
+            return false;
+        }
         return Arrays.stream(aliases)
                 .filter(a -> a.contains(name))
                 .findFirst()
