@@ -27,8 +27,8 @@ public class CommandClientBuilder {
 
     private static String commandStart = null;
     private String token = null;
-    private boolean useDefaultHelpCommand = false;
-    private boolean useDefaultGame = false;
+    private boolean useDefaultHelpCommand = true;
+    private boolean useDefaultGame = true;
     private long[] ownerIds = null;
     private Object[] eventListeners;
 
@@ -54,8 +54,8 @@ public class CommandClientBuilder {
         return this;
     }
 
-    public CommandClientBuilder useDefaultHelpCommand() {
-        this.useDefaultHelpCommand = true;
+    public CommandClientBuilder useDefaultHelpCommand(boolean useDefaultHelpCommand) {
+        this.useDefaultHelpCommand = useDefaultHelpCommand;
         return this;
     }
 
@@ -74,8 +74,8 @@ public class CommandClientBuilder {
         return this;
     }
 
-    public CommandClientBuilder useDefaultGame() {
-        this.useDefaultGame = true;
+    public CommandClientBuilder useDefaultGame(boolean useDefaultGame) {
+        this.useDefaultGame = useDefaultGame;
         return this;
     }
 
