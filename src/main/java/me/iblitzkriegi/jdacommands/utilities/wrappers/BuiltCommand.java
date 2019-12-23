@@ -17,6 +17,7 @@ public class BuiltCommand {
     private Permission[] requiredChannelPermissions;
     private String[] aliases;
     private boolean ownersOnly = false;
+    private boolean usesMentionTagPrefix = false;
 
     public BuiltCommand(String name, String description, String usage, String[] aliases, Command commandClass) {
         this.name = name;
@@ -24,6 +25,14 @@ public class BuiltCommand {
         this.usage = usage;
         this.commandClass = commandClass;
         this.aliases = aliases;
+    }
+
+    public void useMentionTagPrefix() {
+        this.usesMentionTagPrefix = true;
+    }
+
+    public boolean usesMentionTagPrefix() {
+        return this.usesMentionTagPrefix;
     }
 
     public boolean isOwnersOnly() {
