@@ -60,6 +60,11 @@ public class CommandClientBuilder {
         return this;
     }
 
+    public CommandClientBuilder useMentionTagPrefix(boolean useMentionTagPrefix) {
+        this.useMentionTagPrefix = useMentionTagPrefix;
+        return this;
+    }
+
     public CommandClientBuilder setPrefix(String prefix) {
         this.commandStart = prefix;
         return this;
