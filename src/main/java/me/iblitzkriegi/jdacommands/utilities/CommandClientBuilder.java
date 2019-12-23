@@ -29,6 +29,7 @@ public class CommandClientBuilder {
     private String token = null;
     private boolean useDefaultHelpCommand = true;
     private boolean useDefaultGame = true;
+    private boolean useMentionTagPrefix = true;
     private long[] ownerIds = null;
     private Object[] eventListeners;
 
