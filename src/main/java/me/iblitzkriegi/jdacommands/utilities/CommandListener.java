@@ -4,10 +4,12 @@ import me.iblitzkriegi.jdacommands.utilities.wrappers.BuiltCommand;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.CommandClient;
 import me.iblitzkriegi.jdacommands.utilities.wrappers.CommandEvent;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static me.iblitzkriegi.jdacommands.utilities.wrappers.CommandClient.isOwner;
 import static me.iblitzkriegi.jdacommands.utilities.wrappers.CommandClient.parseCommand;
@@ -21,12 +23,38 @@ public class CommandListener extends ListenerAdapter {
         }
         String content = event.getMessage().getContentDisplay();
         String[] arguments = content.contains(" ") ? content.split(" ") : new String[]{content};
-        if (CommandClient.getCommandStart() != null) {
-            if (!arguments[0].startsWith(CommandClient.getCommandStart())) {
-                return;
+        String commandStart = CommandClient.getCommandStart();
+        if (commandStart != null) {
+            if (!arguments[0].startsWith(commandStart)) {
+                if (CommandClient.usesMentionTagPrefix() && event.getMessage().getMentionedUsers().isEmpty()) {
+                    return;
+                }
             }
         }
-        BuiltCommand builtCommand = CommandClient.getCommandStart() != null ? parseCommand(arguments[0].replaceFirst(CommandClient.getCommandStart(), "")) : parseCommand(arguments[0]);
+        BuiltCommand builtCommand;
+        List<User> mentionedUsers = event.getMessage().getMentionedUsers();
+        if (commandStart == null) {
+            if (CommandClient.usesMentionTagPrefix() && mentionedUsers.isEmpty()) {
+                return;
+            } else if (!mentionedUsers.get(0).getId().equals(CommandClient.getJDA().getSelfUser().getId())) {
+                return;
+            }
+
+            arguments = Arrays.copyOfRange(arguments, 1, arguments.length);
+            builtCommand = parseCommand(arguments[0]);
+        } else {
+            if (content.startsWith(commandStart)) {
+                builtCommand = parseCommand(arguments[0].replaceFirst(commandStart, ""));
+            } else if (!mentionedUsers.isEmpty()) {
+                if (!mentionedUsers.get(0).getId().equals(CommandClient.getJDA().getSelfUser().getId())) {
+                    return;
+                }
+                arguments = Arrays.copyOfRange(arguments, 1, arguments.length);
+                builtCommand = parseCommand(arguments[0]);
+            } else {
+                builtCommand = null;
+            }
+        }
         if (builtCommand == null) {
             return;
         }
