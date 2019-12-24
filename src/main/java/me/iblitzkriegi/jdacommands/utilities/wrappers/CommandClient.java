@@ -12,11 +12,13 @@ public class CommandClient {
     private static String commandStart = "";
     private static JDA jda;
     private static long[] ownerIds;
+    private boolean usesMentionTagPrefix;
 
-    public CommandClient(String prefix, HashMap<String, BuiltCommand> commands, JDA jda) {
+    public CommandClient(String prefix, HashMap<String, BuiltCommand> commands, JDA jda, boolean usesMentionTagPrefix) {
         this.commandStart = prefix;
         this.commandHashMap = commands;
         this.jda = jda;
+        this.usesMentionTagPrefix = usesMentionTagPrefix;
     }
 
     public static BuiltCommand parseCommand(String string) {
@@ -30,6 +32,10 @@ public class CommandClient {
 
     public static String getCommandStart() {
         return commandStart;
+    }
+
+    public static boolean usesMentionTagPrefix() {
+        return usesMentionTagPrefix();
     }
 
     public static JDA getJDA() {
