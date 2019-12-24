@@ -31,29 +31,31 @@ public class CommandListener extends ListenerAdapter {
                 }
             }
         }
-        BuiltCommand builtCommand;
         List<User> mentionedUsers = event.getMessage().getMentionedUsers();
+        if (commandStart == null && mentionedUsers.isEmpty()) {
+            return;
+        }
+        BuiltCommand builtCommand;
         if (commandStart == null) {
             if (CommandClient.usesMentionTagPrefix() && mentionedUsers.isEmpty()) {
                 return;
-            } else if (!mentionedUsers.get(0).getId().equals(CommandClient.getJDA().getSelfUser().getId())) {
+            }
+            if (!mentionedUsers.get(0).getId().equals(CommandClient.getJDA().getSelfUser().getId())) {
                 return;
             }
-
             arguments = Arrays.copyOfRange(arguments, 1, arguments.length);
             builtCommand = parseCommand(arguments[0]);
+        } else if (content.startsWith(commandStart)) {
+            builtCommand = parseCommand(arguments[0].replaceFirst(commandStart, ""));
         } else {
-            if (content.startsWith(commandStart)) {
-                builtCommand = parseCommand(arguments[0].replaceFirst(commandStart, ""));
-            } else if (!mentionedUsers.isEmpty()) {
-                if (!mentionedUsers.get(0).getId().equals(CommandClient.getJDA().getSelfUser().getId())) {
-                    return;
-                }
-                arguments = Arrays.copyOfRange(arguments, 1, arguments.length);
-                builtCommand = parseCommand(arguments[0]);
-            } else {
-                builtCommand = null;
+            if (CommandClient.usesMentionTagPrefix() && mentionedUsers.isEmpty()) {
+                return;
             }
+            if (!mentionedUsers.get(0).getId().equals(CommandClient.getJDA().getSelfUser().getId())) {
+                return;
+            }
+            arguments = Arrays.copyOfRange(arguments, 1, arguments.length);
+            builtCommand = parseCommand(arguments[0]);
         }
         if (builtCommand == null) {
             return;
