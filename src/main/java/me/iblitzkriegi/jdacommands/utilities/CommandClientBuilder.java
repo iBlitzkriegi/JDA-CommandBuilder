@@ -148,7 +148,11 @@ public class CommandClientBuilder {
                     builtCommand.setDirectMessageOnly(true);
                 }
                 commandHashMap.put(builtCommand.getName(), builtCommand);
-
+                if (this.useMentionTagPrefix) {
+                    commandHashMap.values()
+                            .stream()
+                            .forEach(builtCommand1 -> builtCommand.usesMentionTagPrefix());
+                }
             } catch (Exception x) {
                 x.printStackTrace();
             }
@@ -157,6 +161,9 @@ public class CommandClientBuilder {
         if (this.useDefaultHelpCommand) {
             try {
                 BuiltCommand builtCommand = new BuiltCommand("help", "The default help command", "help [<commandName>]", null, new Help());
+                if (this.useMentionTagPrefix) {
+                    builtCommand.useMentionTagPrefix();
+                }
                 commandHashMap.put("help", builtCommand);
             } catch (Exception x) {
 
